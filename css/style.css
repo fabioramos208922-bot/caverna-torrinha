@@ -674,7 +674,21 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
 }
 
 @media (max-width: 719px){
-  .topbar{flex-direction:column;align-items:flex-start;padding:12px 0}
+  .wrap{width:min(var(--max), calc(100% - 20px))}
+  .topbar{flex-direction:column;align-items:flex-start;padding:12px 0;width:100%}
+  .menu-tools{width:100%;justify-content:flex-start;gap:10px;flex-wrap:wrap}
+  .brand{max-width:100%}
+  .social-links{
+    width:100%;
+    overflow-x:auto;
+    padding-bottom:2px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .social-links::-webkit-scrollbar{display:none}
+  .social-link{flex:0 0 auto}
+  .theme-toggle{flex:0 0 auto}
   nav{
     width:100%;
     justify-content:flex-start;
@@ -687,18 +701,19 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
   }
   nav::-webkit-scrollbar{display:none}
   nav a{flex:0 0 auto}
-  .depth{left:6px;top:108px;bottom:108px;width:10px}
+  .depth{display:none}
   .hero-panel{min-height:420px}
   .panel-data{
     grid-template-columns:1fr;
     padding-top:132px
   }
   .hero-copy{left:12px;right:12px;top:12px}
+  .route-modal__grid{grid-template-columns:1fr}
+  .lightbox__info{display:none}
   .feature-band{grid-template-columns:1fr}
   .section-head{flex-direction:column;align-items:start}
   .whatsapp{right:12px;bottom:12px}
   .lightbox{padding:18px}
-  .lightbox__info{display:none}
   .lightbox__nav--prev{left:10px}
   .lightbox__nav--next{right:10px}
   .lightbox__nav,.lightbox__close{width:44px;height:44px}
