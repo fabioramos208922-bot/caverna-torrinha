@@ -676,6 +676,7 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
 
 @media (max-width: 719px){
   .wrap{width:min(var(--max), calc(100% - 16px))}
+  .scroll-bg{display:none}
   .topbar{flex-direction:column;align-items:flex-start;padding:12px 0;width:100%}
   .menu-tools{width:100%;justify-content:flex-start;gap:10px;flex-wrap:wrap}
   .brand{max-width:100%;flex-wrap:nowrap}
@@ -693,15 +694,17 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
   .theme-toggle{flex:0 0 auto}
   nav{
     width:100%;
-    justify-content:flex-start;
-    overflow:visible;
+    justify-content:space-between;
+    overflow:hidden;
     flex-wrap:wrap;
     padding-bottom:4px;
     max-width:100%;
   }
   nav a{
-    flex:1 1 calc(50% - 8px);
+    flex:1 1 calc(20% - 8px);
     text-align:center;
+    font-size:.86rem;
+    padding:8px 6px;
     white-space:nowrap;
     max-width:none;
   }
