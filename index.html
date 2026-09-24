@@ -1,0 +1,406 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Caverna Torrinha, uma das cavernas mais completas do Brasil, em Iraquara, Chapada Diamantina, Bahia." />
+  <title>Caverna Torrinha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <div class="scroll-bg" aria-hidden="true">
+    <div class="scroll-bg__layer scroll-bg__layer--a" id="bgLayerA"></div>
+    <div class="scroll-bg__layer scroll-bg__layer--b" id="bgLayerB"></div>
+    <div class="scroll-bg__veil"></div>
+  </div>
+  <div class="depth" aria-hidden="true">
+    <div class="rail"></div>
+    <div class="fill" id="depthFill"></div>
+    <div class="label" id="depthLabel">0 m explorados</div>
+  </div>
+  <header>
+    <div class="wrap topbar">
+      <div class="brand"><img class="mark" src="assets/logo.png" alt="Logo da Caverna Torrinha"><span>Caverna Torrinha</span></div>
+      <div class="menu-tools">
+        <button class="theme-toggle" id="menuThemeToggle" type="button" aria-pressed="false" aria-label="Alternar menu entre claro e escuro">Menu escuro</button>
+        <div class="social-links" aria-label="Redes sociais">
+          <a class="social-link" href="https://www.instagram.com/cavernatorrinha_oficial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Instagram da Caverna Torrinha">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9Zm0 2h9A3.5 3.5 0 0 1 20 7.5v9a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 16.5v-9A3.5 3.5 0 0 1 7.5 4Zm10.25.75a1.25 1.25 0 1 0 0 2.5a1.25 1.25 0 0 0 0-2.5ZM12 6.5A5.5 5.5 0 1 0 17.5 12A5.51 5.51 0 0 0 12 6.5Zm0 2A3.5 3.5 0 1 1 8.5 12A3.5 3.5 0 0 1 12 8.5Z"/></svg>
+          </a>
+          <a class="social-link" href="https://www.facebook.com/caverna.torrinha?locale=pt_BR" target="_blank" rel="noopener" aria-label="Facebook da Caverna Torrinha">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V8.7c0-.87.24-1.47 1.5-1.47h1.7V4.5c-.29-.04-1.28-.13-2.43-.13-2.39 0-4.03 1.46-4.03 4.14V11H8v3h2.24v8h3.26Z"/></svg>
+          </a>
+        </div>
+        <nav aria-label="Navegação principal">
+          <a href="#historia">História</a>
+          <a href="#rotas">Roteiros</a>
+          <a href="#visita">Visita</a>
+          <a href="#localizacao">Localização</a>
+          <a href="#contato">Contato</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero reveal">
+      <div class="wrap grid-hero">
+        <div>
+          <div class="eyebrow">Iraquara, Chapada Diamantina, Bahia</div>
+          <h1>A caverna mais completa do Brasil</h1>
+          <p class="lead">Uma concentração rara de formações naturais, salões amplos e roteiros guiados que revelam por que a Torrinha é referência em espeleoturismo no Brasil.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://wa.me/5575998561666" target="_blank" rel="noopener">Agendar visita pelo WhatsApp</a>
+            <a class="btn btn-ghost" href="#rotas">Ver roteiros</a>
+          </div>
+          <div class="hero-badges">
+            <span class="tag">14,5 km mapeados</span>
+            <span class="tag">2,5 km visitáveis</span>
+            <span class="tag">Guia obrigatório</span>
+            <span class="tag">Até 200 visitantes/dia</span>
+          </div>
+        </div>
+        <div class="hero-panel" aria-label="Imagem ilustrativa da caverna">
+          <img class="hero-image" src="assets/painacio.jpeg" alt="Réplica natural do Morro do Pai Inácio na Caverna Torrinha" fetchpriority="high" decoding="async">
+          <div class="hero-copy">
+            <strong>Experiência guiada</strong>
+            <p>Capacete, lanterna e orientação profissional em todos os roteiros.</p>
+          </div>
+          <div class="panel-data">
+            <div class="stat"><strong>14,5 km</strong><span>mapeados</span></div>
+            <div class="stat"><strong>2,5 km</strong><span>acessíveis</span></div>
+            <div class="stat"><strong>200</strong><span>visitantes/dia</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="historia" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">História</div>
+            <h2>Da descoberta ao mapeamento completo</h2>
+          </div>
+          <p>Um percurso marcado por exploração antiga, uma descoberta decisiva em 1992 e o reconhecimento das formações raras que tornaram a caverna conhecida internacionalmente.</p>
+        </div>
+        <div class="timeline">
+          <div class="card">Descoberta em <strong>1850</strong>, explorada inicialmente pelo Capitão José de Fulor até cerca de 600 metros, no trecho hoje conhecido como <strong>Roteiro do Capitão</strong>.</div>
+          <div class="card">Em <strong>1992</strong>, a espeleóloga francesa Valery Nayon encontrou uma passagem estreita que revelou grandes salões internos e permitiu mapear o restante da caverna.</div>
+          <div class="card">Hoje são <strong>14,5 km mapeados</strong>, com <strong>2,5 km acessíveis</strong> à visitação, dentro da APA Marimbus-Iraquara, ao norte do Parque Nacional da Chapada Diamantina.</div>
+        </div>
+        <div class="feature-band">
+          <div class="feature">
+            <span>Proteção ambiental</span>
+            <strong>APA Marimbus-Iraquara</strong>
+          </div>
+          <div class="feature">
+            <span>Base turística</span>
+            <strong>Caverna Torrinha</strong>
+          </div>
+          <div class="feature">
+            <span>Referência regional</span>
+            <strong>Chapada Diamantina</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="destaques" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Formações</div>
+            <h2>O que torna a Torrinha única</h2>
+          </div>
+          <p>As formações abaixo aparecem como destaque principal do roteiro e ajudam a contar a identidade geológica do lugar.</p>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <span class="tag">Rara</span>
+            <h3>Flor de aragonita</h3>
+            <p>Uma das maiores pétalas do mundo e a Terceira maior flor de aragonita já registrada, com presença marcante em salões de destaque.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Gigante</span>
+            <h3>Agulhas de gipsita</h3>
+            <p>Algumas peças chegam perto de 70 cm, o que coloca a caverna entre os locais mais notáveis para esse tipo de formação.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Surpreendente</span>
+            <h3>Helictites e flores</h3>
+            <p>Estruturas que crescem em direções improváveis e criam um desenho quase escultórico em meio às galerias.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Cartão-postal</span>
+            <h3>Réplica do Morro do Pai Inácio</h3>
+            <p>Além de estalactites, estalagmites, colunas, cortinas, cabelo de anjo e bolhas de calcita, o passeio inclui essa formação simbólica da Chapada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rotas" class="reveal routes-section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Roteiros</div>
+            <h2>Quatro formas de explorar a caverna</h2>
+          </div>
+          <p>Os roteiros abaixo foram organizados para apresentar clareza de acesso, duração e nível de esforço.</p>
+        </div>
+        <div class="routes">
+          <article class="card route" tabindex="0" role="button" aria-expanded="false" data-route="capitao">
+            <h3>Roteiro do Capitão</h3>
+            <p>O mais curto e antigo, com estalactites, estalagmites, colunas e cortinas. Descoberto pelo Capitão José de Fulor.</p>
+            <ul><li>Acesso a pé: cerca de 700 m</li><li>Duração média: 1h</li><li>Esforço: leve</li></ul>
+            <div class="route-meta"><span>Ideal para primeira visita</span><span>Trecho histórico</span></div>
+          </article>
+          <article class="card route" tabindex="0" role="button" aria-expanded="false" data-route="valery">
+            <h3>Roteiro Valery</h3>
+            <p>Foco nas formações raras, como flores de aragonita, helictites e agulhas de gipsita.</p>
+            <ul><li>Acesso a pé: cerca de 1,2 km</li><li>Duração média: 1h30</li><li>Esforço: moderado</li></ul>
+            <div class="route-meta"><span>Formações raras</span><span>Mais fotogênico</span></div>
+          </article>
+          <article class="card route" tabindex="0" role="button" aria-expanded="false" data-route="raridades">
+            <h3>Roteiro das Raridades</h3>
+            <p>Inclui a bolha de calcita com flor de aragonita dentro, o Salão dos Vulcões, helictite com flor na ponta e a réplica do Morro do Pai Inácio.</p>
+            <div class="route-meta"><span>Para quem quer detalhes</span><span>Salões internos</span></div>
+          </article>
+          <article class="card route" tabindex="0" role="button" aria-expanded="false" data-route="completo">
+            <h3>Roteiro Completo</h3>
+            <p>Reúne todos os roteiros anteriores e entrega a experiência mais ampla da Torrinha.</p>
+            <ul><li>Acesso: cerca de 3,0 km</li><li>Duração: até 2h30</li><li>Esforço: moderado a avançado</li></ul>
+            <div class="route-meta"><span>Visão total da caverna</span><span>Melhor imersão</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="visita" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Visitação</div>
+            <h2>Informações práticas para planejar o passeio</h2>
+          </div>
+          <p>As informações abaixo ajudam a orientar o visitante antes da compra ou reserva do roteiro.</p>
+        </div>
+        <div class="info-grid">
+          <div class="info-item"><strong>Funcionamento</strong>Todos os dias, das 8h às 17h.</div>
+          <div class="info-item"><strong>Reservas</strong>Não obrigatórias, exceto para grupos grandes ou alta temporada.</div>
+          <div class="info-item"><strong>Preços</strong>De R$ 40 ao passeio mais simples até R$ 150 no roteiro completo.</div>
+          <div class="info-item"><strong>Segurança</strong>Guia obrigatório, capacete e lanterna fornecidos, saídas sinalizadas e equipe treinada.</div>
+          <div class="info-item"><strong>Acessibilidade</strong>Terreno irregular e escadas; pode ter limitação para mobilidade reduzida.</div>
+          <div class="info-item"><strong>Levar</strong>Apenas água durante o passeio, para preservar as formações.</div>
+          <div class="info-item"><strong>Crianças</strong>Devem estar acompanhadas de um adulto responsável durante toda a visita.</div>
+          <div class="info-item"><strong>Clima interno</strong>A caverna mantém temperatura mais estável que a área externa, o que ajuda no conforto da visita guiada.</div>
+        </div>
+        <div class="note-band">
+          <strong>Dica prática:</strong> reserve um horário que permita chegar com antecedência, vestir calçado fechado e manter as mãos livres durante o percurso.
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Galeria</div>
+            <h2>Substitua pelos registros reais da caverna</h2>
+          </div>
+          <p>Os blocos abaixo funcionam como placeholders até entrarmos com fotos oficiais da Torrinha.</p>
+        </div>
+        <div class="gallery">
+          <button class="shot" type="button" data-full="assets/salao branco.jpg" aria-label="Abrir imagem do Salão principal em tela cheia"><img src="assets/salao branco.jpg" alt="Salão principal da Caverna Torrinha" loading="lazy" decoding="async"></button>
+          <button class="shot" type="button" data-full="assets/3flor.jpg" aria-label="Abrir imagem das formações raras em tela cheia"><img src="assets/3flor.jpg" alt="Formações raras da Caverna Torrinha" loading="lazy" decoding="async"></button>
+          <button class="shot" type="button" data-full="assets/vulcao.jpg" aria-label="Abrir imagem do interior iluminado em tela cheia"><img src="assets/vulcao.jpg" alt="Interior iluminado da Caverna Torrinha" loading="lazy" decoding="async"></button>
+          <button class="shot" type="button" data-full="assets/flor.png" aria-label="Abrir imagem da flor em tela cheia"><img src="assets/flor.png" alt="Flor de aragonita da Caverna Torrinha" loading="lazy" decoding="async"></button>
+          <button class="shot" type="button" data-full="assets/agulha (1).jpg" aria-label="Abrir imagem das agulhas em tela cheia"><img src="assets/agulha (1).jpg" alt="Agulhas de gipsita da Caverna Torrinha" loading="lazy" decoding="async"></button>
+          <button class="shot" type="button" data-full="assets/bolha.jpg" aria-label="Abrir imagem da bolha em tela cheia"><img src="assets/bolha.jpg" alt="Bolha de calcita da Caverna Torrinha" loading="lazy" decoding="async"></button>
+          <button class="shot" type="button" data-full="assets/cavidade.jpg" aria-label="Abrir imagem da cavidade em tela cheia"><img src="assets/cavidade.jpg" alt="Cavidade da Caverna Torrinha" loading="lazy" decoding="async"></button>
+          <button class="shot" type="button" data-full="assets/cristal.png" aria-label="Abrir imagem dos cristais em tela cheia"><img src="assets/cristal.png" alt="Cristais da Caverna Torrinha" loading="lazy" decoding="async"></button>
+          <button class="shot" type="button" data-full="assets/drinki.jpg" aria-label="Abrir imagem adicional em tela cheia"><img src="assets/drinki.jpg" alt="Imagem adicional da Caverna Torrinha" loading="lazy" decoding="async"></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="depoimentos" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Depoimentos</div>
+          <h2>Impressões de visitantes</h2>
+          </div>
+        </div>
+        <div class="cards">
+          <blockquote class="card">"Caverna Torrinha é um dos meus lugares prediletos, um lugar de paz, aconchego e leveza! Uma conexão incrível com a natureza." <br><strong>Simone, Iraquara-BA</strong></blockquote>
+          <blockquote class="card">"Foi uma experiência maravilhosa conhecer a gruta da Torrinha, guia gentil, atencioso e paciente, com muito conhecimento sobre o local." <br><strong>Ana Maria, Brasília-DF</strong></blockquote>
+          <blockquote class="card">"Em meio à escuridão total, com faroletes iluminando o caminho, senti como se estivesse realmente explorando as profundezas da Terra."</blockquote>
+          <blockquote class="card">"A organização da visita foi ótima e o roteiro completo entrega muita informação sem ficar cansativo." <br><strong>Visitante, Chapada Diamantina</strong></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">FAQ</div>
+            <h2>Perguntas frequentes</h2>
+          </div>
+        </div>
+        <details><summary>Existe restrição para visitar a caverna?</summary><p>Sim. O terreno irregular e as escadas podem limitar pessoas com mobilidade reduzida, e crianças devem estar acompanhadas de um adulto responsável.</p></details>
+        <details><summary>A caverna é ventilada / dá para fazer com claustrofobia?</summary><p>A experiência é orientada por guia e a equipe é treinada para apoiar visitantes com claustrofobia. O conforto varia conforme o roteiro escolhido.</p></details>
+        <details><summary>O que é permitido levar durante a visita?</summary><p>Recomendado levar apenas água, para preservar as formações e manter o percurso mais seguro.</p></details>
+        <details><summary>O que fazer em caso de emergência?</summary><p>Siga imediatamente as orientações do guia e da equipe local; as saídas de emergência são sinalizadas.</p></details>
+        <details><summary>Dá para combinar com outras cavernas no mesmo dia?</summary><p>Sim, dependendo do roteiro e do tempo disponível, é possível combinar com outros atrativos da Chapada, como Lapa Doce e Pratinha.</p></details>
+      </div>
+    </section>
+
+    <section id="localizacao" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+          <div class="eyebrow">Localização</div>
+            <h2>Onde fica a Torrinha</h2>
+          </div>
+          <p>Caverna Torrinha, zona rural de Iraquara, Chapada Diamantina, Bahia, a cerca de 64 km de Lençóis.</p>
+        </div>
+        <div class="note-band location-intro">
+          <strong>Mapa e vídeos:</strong> esta parte foi organizada para ajudar o visitante a localizar a caverna e entender melhor a experiência antes da visita. No mapa você vê o ponto exato da Torrinha, e nos vídeos estão o material explicativo e a apresentação do local.
+        </div>
+        <div class="two-col">
+          <div class="card">
+          <p><strong>Endereço resumido:</strong> Caverna Torrinha, Iraquara - BA</p>
+          <p><strong>Referências:</strong> 15 km do centro de Iraquara e 1 km da BA-122.</p>
+          <p><strong>Estrutura:</strong> recepção, restaurante, cafeteria com vista para o paredão, pizzaria planejada e pousada em construção.</p>
+          <p><strong>Distância de Lençóis:</strong> cerca de 64 km, o que facilita combinar com outros atrativos da Chapada Diamantina.</p>
+          </div>
+          <iframe class="map" title="Mapa da Caverna Torrinha" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Caverna%20Torrinha,%20Iraquara%20-%20BA&output=embed"></iframe>
+        </div>
+        <div class="section-head location-videos-head">
+          <div>
+            <div class="eyebrow">Vídeos</div>
+            <h2>Apresentação da Torrinha</h2>
+          </div>
+          <p>Os três arquivos abaixo ajudam a complementar o mapa com uma visão mais visual e explicativa da caverna.</p>
+        </div>
+        <div class="video-grid">
+          <article class="card video-card">
+            <div class="video-frame">
+              <video controls preload="metadata" playsinline>
+                <source src="assets/explicaçao.mp4" type="video/mp4">
+                Seu navegador não suporta vídeo HTML5.
+              </video>
+            </div>
+            <h3>Vídeo explicativo</h3>
+            <p>Conteúdo de apresentação para contextualizar a visita e mostrar os principais pontos da Torrinha.</p>
+          </article>
+          <article class="card video-card">
+            <div class="video-frame">
+              <video controls preload="metadata" playsinline>
+                <source src="assets/Torrinha .mp4" type="video/mp4">
+                Seu navegador não suporta vídeo HTML5.
+              </video>
+            </div>
+            <h3>Vídeo da Torrinha</h3>
+            <p>Registro visual do local para reforçar o que o visitante encontra no passeio e na paisagem da região.</p>
+          </article>
+          <article class="card video-card">
+            <div class="video-frame">
+              <video controls preload="metadata" playsinline>
+                <source src="assets/marcelo.mp4" type="video/mp4">
+                Seu navegador não suporta vídeo HTML5.
+              </video>
+            </div>
+            <h3>Um pouco sobre a nossa caverna</h3>
+            <p>Material adicional para ampliar a apresentação da Torrinha e incluir mais uma referência visual do local.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Contato</div>
+            <h2>Fale com a equipe</h2>
+          </div>
+        </div>
+        <div class="contact">
+          <form onsubmit="return false">
+            <div class="field"><label for="nome">Nome</label><input id="nome" name="nome" type="text" autocomplete="name"></div>
+            <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email"></div>
+            <div class="field"><label for="telefone">Telefone</label><input id="telefone" name="telefone" type="tel" autocomplete="tel"></div>
+            <div class="field"><label for="mensagem">Mensagem</label><textarea id="mensagem" name="mensagem"></textarea></div>
+            <a class="btn btn-primary" id="whatsForm" href="https://wa.me/5575998561666" target="_blank" rel="noopener">Fale conosco pelo WhatsApp</a>
+          </form>
+          <div class="card">
+            <p><strong>WhatsApp/telefone:</strong> (75) 99856-1666</p>
+            <p><strong>Instagram:</strong> @cavernatorrinha_oficial</p>
+          <p><strong>Atendimento:</strong> ideal para tirar dúvidas sobre roteiro, duração, grupos e melhor horário de visita.</p>
+          <p><strong>Observação:</strong> as imagens exibidas são de fontes públicas externas sobre a Torrinha; se você quiser, eu posso trocar tudo por fotos enviadas por você ou pelo próprio Instagram oficial.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <div class="brand"><img class="mark" src="assets/logo.png" alt="Logo da Caverna Torrinha"><span>Caverna Torrinha</span></div>
+          <p>Caverna Torrinha, Iraquara - BA. Horário: todos os dias, das 8h às 17h.</p>
+      </div>
+      <div>
+          <p>Política de privacidade · Termos</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp" href="https://wa.me/5575998561666" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.9 9.9 0 0 0-8.56 14.9L2 22l5.27-1.38A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.08-1.12l-.29-.16-3.13.82.84-3.05-.18-.31A8 8 0 1 1 12 20Zm4.64-5.96c-.25-.13-1.47-.73-1.7-.82-.23-.08-.39-.13-.56.13-.17.25-.65.82-.8.99-.15.17-.3.19-.55.06a6.52 6.52 0 0 1-1.92-1.18 7.18 7.18 0 0 1-1.33-1.65c-.14-.24-.02-.37.11-.5.11-.11.25-.29.38-.44.13-.15.17-.25.26-.41.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.86-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.89.87-.89 2.12s.91 2.46 1.04 2.63c.13.17 1.8 2.75 4.37 3.86.61.26 1.08.42 1.45.54.61.19 1.16.16 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.59.21-1.09.15-1.18-.06-.1-.22-.16-.47-.29Z"/></svg>
+  </a>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Fechar imagem">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" type="button" aria-label="Imagem anterior">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 4.5 8 12l7.5 7.5-1.4 1.4L5.2 12l8.9-8.9 1.4 1.4Z"/></svg>
+    </button>
+    <aside class="lightbox__info lightbox__info--left" aria-live="polite">
+      <span class="lightbox__kicker" id="lightboxLeftKicker">Caverna Torrinha</span>
+      <h3 id="lightboxLeftTitle">Imagem selecionada</h3>
+      <p id="lightboxLeftText">Use as setas para navegar entre as imagens da galeria.</p>
+    </aside>
+    <img id="lightboxImg" alt="">
+    <aside class="lightbox__info lightbox__info--right" aria-live="polite">
+      <span class="lightbox__kicker" id="lightboxRightKicker">Detalhe</span>
+      <h3 id="lightboxRightTitle">Foto ampliada</h3>
+      <p id="lightboxRightText">Clique fora da imagem ou aperte Esc para fechar.</p>
+    </aside>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" type="button" aria-label="Próxima imagem">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 4.5 1.4-1.4 8.9 8.9-8.9 8.9-1.4-1.4L16 12 8.5 4.5Z"/></svg>
+    </button>
+  </div>
+
+  <div class="route-modal" id="routeModal" aria-hidden="true">
+    <div class="route-modal__backdrop" data-route-close></div>
+    <div class="route-modal__panel" role="dialog" aria-modal="true" aria-labelledby="routeModalTitle">
+      <button class="route-modal__close" type="button" data-route-close aria-label="Fechar detalhes">×</button>
+      <div class="eyebrow" id="routeModalKicker">Roteiro</div>
+      <h3 id="routeModalTitle">Detalhes do roteiro</h3>
+      <p id="routeModalSummary"></p>
+      <div class="route-modal__grid" id="routeModalGrid"></div>
+      <div class="route-modal__notes" id="routeModalNotes"></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
