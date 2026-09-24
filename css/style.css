@@ -26,7 +26,7 @@ body{
     linear-gradient(180deg, #11100d 0%, #0b0a09 100%);
   color:var(--text);
   line-height:1.5;
-  overflow-x:hidden;
+  overflow-x:clip;
   position:relative;
   isolation:isolate;
   -webkit-font-smoothing:antialiased;
@@ -674,10 +674,11 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
 }
 
 @media (max-width: 719px){
-  .wrap{width:min(var(--max), calc(100% - 20px))}
+  .wrap{width:min(var(--max), calc(100% - 16px))}
   .topbar{flex-direction:column;align-items:flex-start;padding:12px 0;width:100%}
   .menu-tools{width:100%;justify-content:flex-start;gap:10px;flex-wrap:wrap}
-  .brand{max-width:100%}
+  .brand{max-width:100%;flex-wrap:nowrap}
+  .brand span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .social-links{
     width:100%;
     overflow-x:auto;
@@ -695,12 +696,17 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
     overflow-x:auto;
     flex-wrap:nowrap;
     padding-bottom:4px;
+    max-width:100%;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
     -ms-overflow-style:none;
   }
   nav::-webkit-scrollbar{display:none}
-  nav a{flex:0 0 auto}
+  nav a{
+    flex:0 0 auto;
+    white-space:nowrap;
+    max-width:none;
+  }
   .depth{display:none}
   .hero-panel{min-height:420px}
   .panel-data{
@@ -718,6 +724,7 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
   .lightbox__nav--next{right:10px}
   .lightbox__nav,.lightbox__close{width:44px;height:44px}
   .video-grid{grid-template-columns:1fr}
+  .section-head h2,.section-head p{max-width:100%}
 }
 
 @media (prefers-reduced-motion: reduce){
