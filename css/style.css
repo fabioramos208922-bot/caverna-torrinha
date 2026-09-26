@@ -77,7 +77,9 @@ header{
   backdrop-filter:blur(18px);
   background:rgba(10,10,10,.96);
   border-bottom:1px solid var(--line);
+  transition:transform .28s ease;
 }
+header.header-hidden{transform:translateY(-100%)}
 header::after{
   content:"";display:block;height:1px;
   background:linear-gradient(90deg,transparent,rgba(241,169,75,.6),transparent);
@@ -677,12 +679,13 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
 @media (max-width: 719px){
   .wrap{width:min(var(--max), calc(100% - 16px))}
   .scroll-bg{display:none}
-  .topbar{flex-direction:column;align-items:flex-start;padding:12px 0;width:100%}
-  .menu-tools{width:100%;justify-content:flex-start;gap:10px;flex-wrap:wrap}
+  .topbar{flex-direction:column;align-items:stretch;gap:8px;padding:8px 0;width:100%}
+  .menu-tools{width:100%;justify-content:flex-start;gap:8px;flex-wrap:wrap}
+  .brand{width:100%;}
   .brand{max-width:100%;flex-wrap:nowrap}
   .brand span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .social-links{
-    width:100%;
+    width:auto;
     overflow-x:auto;
     padding-bottom:2px;
     -webkit-overflow-scrolling:touch;
@@ -697,14 +700,14 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
     justify-content:space-between;
     overflow:hidden;
     flex-wrap:wrap;
-    padding-bottom:4px;
+    padding-bottom:0;
     max-width:100%;
   }
   nav a{
     flex:1 1 calc(20% - 8px);
     text-align:center;
     font-size:.86rem;
-    padding:8px 6px;
+    padding:6px 4px;
     white-space:nowrap;
     max-width:none;
   }
@@ -726,6 +729,14 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
   .lightbox__nav,.lightbox__close{width:44px;height:44px}
   .video-grid{grid-template-columns:1fr}
   .section-head h2,.section-head p{max-width:100%}
+}
+
+@media (max-width: 719px){
+  header.header-hidden{transform:translateY(-100%)}
+  .topbar{min-height:0}
+  .mark{width:34px;height:34px;border-radius:10px}
+  .social-link{width:36px;height:36px}
+  .theme-toggle{padding:8px 12px;font-size:.9rem}
 }
 
 @media (prefers-reduced-motion: reduce){
