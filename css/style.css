@@ -627,20 +627,25 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
 .ai-chat{
   position:fixed;right:16px;bottom:150px;z-index:80;width:min(380px,calc(100vw - 32px));height:min(580px,calc(100vh - 170px));
   display:none;grid-template-rows:auto 1fr auto;overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:18px;
-  background:linear-gradient(180deg,rgba(24,21,18,.98),rgba(12,11,10,.99));box-shadow:0 24px 70px rgba(0,0,0,.45);color:#f4efe7
+  background:linear-gradient(180deg,rgba(8,11,18,.98),rgba(5,7,12,.99));box-shadow:0 24px 70px rgba(0,0,0,.58),0 0 50px rgba(239,23,49,.08);color:#f4efe7;border-color:rgba(121,136,169,.5)
 }
 .ai-chat.is-open{display:grid}
-.ai-chat__header{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ai-chat__header{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:20px 18px;border-bottom:2px solid #ed1b35}
+.ai-chat__brand-icon,.ai-chat__message-icon{display:grid;place-items:center;color:#ff1938;border:2px solid #ed1b35;border-radius:50%;font:700 .72rem "JetBrains Mono",monospace}
+.ai-chat__brand-icon{width:54px;height:54px;box-shadow:0 0 20px rgba(237,27,53,.28)}
 .ai-chat__header strong,.ai-chat__header span{display:block}.ai-chat__header span{margin-top:4px;color:#aaa29a;font-size:.8rem}
-.ai-chat__close{width:34px;height:34px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(255,255,255,.06);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.ai-chat__header strong{font-size:1.08rem}.ai-chat__header span{font-size:.86rem;color:#b8bdca}
+.ai-chat__header .ai-chat__brand-icon{display:grid;margin:0;color:#ff1938;font-size:.72rem}
+.ai-chat__close{width:42px;height:42px;border:2px solid #ed1b35;border-radius:50%;background:transparent;color:#fff;font-size:25px;line-height:1;cursor:pointer}
 .ai-chat__messages{display:flex;flex-direction:column;gap:10px;overflow:auto;padding:18px 16px;align-content:start}
-.ai-chat__message{max-width:88%;padding:10px 12px;border-radius:14px;font-size:.92rem;line-height:1.45;white-space:pre-wrap}
-.ai-chat__message--bot{align-self:flex-start;background:rgba(255,255,255,.08)}
+.ai-chat__message{max-width:90%;padding:14px 16px;border-radius:18px;font-size:.95rem;line-height:1.45;white-space:pre-wrap}
+.ai-chat__message--bot{align-self:flex-start;display:flex;gap:10px;align-items:flex-start;background:linear-gradient(145deg,rgba(43,51,67,.95),rgba(26,31,42,.95));border:1px solid rgba(121,136,169,.32)}
+.ai-chat__message-icon{flex:0 0 auto;width:28px;height:28px;margin-top:1px;border-width:1px}
 .ai-chat__message--user{align-self:flex-end;background:#c77d2e;color:#17120d}
 .ai-chat__message--error{align-self:flex-start;background:rgba(184,64,45,.22);color:#ffd1c7}
-.ai-chat__form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:14px;border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.16)}
-.ai-chat__form input{min-width:0;padding:12px 13px;border-radius:11px;background:#f7f3ed}
-.ai-chat__form button{border:0;border-radius:11px;padding:0 15px;background:#f1a94b;color:#17120d;font-weight:700;cursor:pointer}
+.ai-chat__form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:18px;border:1px solid rgba(121,136,169,.45);border-radius:22px;margin:0 10px 10px;background:rgba(4,7,13,.9)}
+.ai-chat__input-wrap{display:flex;align-items:center;gap:9px;min-width:0;padding:0 12px;border:1px solid rgba(121,136,169,.65);border-radius:14px;background:#151b27;color:#ff1938}.ai-chat__input-wrap input{min-width:0;padding:13px 0;border:0;background:transparent;color:#fff;box-shadow:none}.ai-chat__input-wrap input::placeholder{color:#a5adbd}
+.ai-chat__form button{display:flex;align-items:center;gap:8px;border:0;border-radius:14px;padding:0 17px;background:#ff2038;color:#fff;font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 0 18px rgba(255,32,56,.25)}
 .ai-chat__form button:disabled{opacity:.6;cursor:wait}
 @media (max-width:719px){
   .ai-chat__open{right:12px;bottom:80px}

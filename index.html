@@ -372,6 +372,7 @@
 
   <section class="ai-chat" id="aiChat" aria-label="Atendimento virtual" aria-hidden="true">
     <div class="ai-chat__header">
+      <span class="ai-chat__brand-icon" aria-hidden="true">IA</span>
       <div>
         <strong>Atendimento virtual</strong>
         <span>Sobre a Caverna Torrinha</span>
@@ -379,12 +380,12 @@
       <button class="ai-chat__close" id="aiChatClose" type="button" aria-label="Fechar atendimento virtual">×</button>
     </div>
     <div class="ai-chat__messages" id="aiChatMessages" aria-live="polite">
-      <div class="ai-chat__message ai-chat__message--bot">Olá! Posso ajudar com dúvidas sobre roteiros, horários, preços, localização e visitação.</div>
+      <div class="ai-chat__message ai-chat__message--bot"><span class="ai-chat__message-icon" aria-hidden="true">IA</span><span>Olá! Posso ajudar com dúvidas sobre roteiros, horários, preços, localização e visitação.</span></div>
     </div>
     <form class="ai-chat__form" id="aiChatForm">
       <label class="sr-only" for="aiChatInput">Digite sua pergunta</label>
-      <input id="aiChatInput" type="text" placeholder="Digite sua pergunta..." autocomplete="off" required>
-      <button type="submit" aria-label="Enviar pergunta">Enviar</button>
+      <div class="ai-chat__input-wrap"><span aria-hidden="true">?</span><input id="aiChatInput" type="text" placeholder="Digite sua pergunta..." autocomplete="off" required></div>
+      <button type="submit" aria-label="Enviar pergunta"><span>➤</span> Enviar</button>
     </form>
   </section>
   <button class="ai-chat__open" id="aiChatOpen" type="button" aria-label="Abrir atendimento virtual">IA</button>
