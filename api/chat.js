@@ -10,6 +10,7 @@ Informações do site:
 - Guia é obrigatório. Capacete e lanterna são fornecidos. O terreno é irregular e possui escadas; pode haver limitação para pessoas com mobilidade reduzida.
 - Crianças devem estar acompanhadas por um adulto responsável. Recomenda-se levar apenas água e usar calçado fechado.
 - A caverna possui 14,5 km mapeados e 2,5 km acessíveis à visitação, dentro da APA Marimbus-Iraquara.
+- Se perguntarem quantos quilômetros a caverna tem, responda: a Caverna Torrinha tem 14,5 km mapeados, dos quais 2,5 km são acessíveis à visitação.
 - Roteiro do Capitão: cerca de 700 m, duração média de 1 hora, esforço leve; inclui estalactites, estalagmites, colunas e cortinas.
 - Roteiro Valery: cerca de 1,2 km, duração média de 1h30, esforço moderado; destaca flores de aragonita, helictites e agulhas de gipsita.
 - Roteiro das Raridades: inclui a bolha de calcita com flor de aragonita, o Salão dos Vulcões, helictite com flor na ponta e a réplica do Morro do Pai Inácio.
@@ -25,6 +26,10 @@ export default async function handler(req, res) {
   if (!process.env.OPENAI_API_KEY) return res.status(500).json({ error: 'A chave da OpenAI ainda não foi configurada.' });
   try {
     const messages = Array.isArray(req.body?.messages) ? req.body.messages.slice(-8) : [];
+    const question = String(messages.filter(message => message.role === 'user').at(-1)?.content || '').toLowerCase();
+    if (question.includes('km') || question.includes('quilometr')) {
+      return res.status(200).json({ answer: 'A Caverna Torrinha tem 14,5 km mapeados. Desse total, 2,5 km são acessíveis à visitação.' });
+    }
     const response = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
       body: JSON.stringify({ model: 'gpt-4o-mini', instructions: siteKnowledge, input: messages })
