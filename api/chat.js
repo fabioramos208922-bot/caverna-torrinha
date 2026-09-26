@@ -47,6 +47,9 @@ export default async function handler(req, res) {
   try {
     const messages = Array.isArray(req.body?.messages) ? req.body.messages.slice(-8) : [];
     const question = String(messages.filter(message => message.role === 'user').at(-1)?.content || '').toLowerCase();
+    if (/^(olá|ola|oi|bom dia|boa tarde|boa noite)[!,.? ]*$/i.test(question.trim())) {
+      return res.status(200).json({ answer: 'Olá! Tudo bem? Como posso ajudar?' });
+    }
     if (question.includes('instagram') || question.includes('insta')) {
       return res.status(200).json({ answer: 'O Instagram oficial é @cavernatorrinha_oficial. Você também pode acessar: https://www.instagram.com/cavernatorrinha_oficial/' });
     }
