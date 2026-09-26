@@ -17,6 +17,24 @@ Informações do site:
 - Roteiro Completo: reúne os roteiros anteriores, cerca de 3 km, duração de até 2h30 e esforço moderado a avançado.
 - Contato: WhatsApp (75) 99856-1666; Instagram @cavernatorrinha_oficial.`;
 
+const getOfficialSiteText = async () => {
+  try {
+    const response = await fetch('https://cavernatorrinha.com/', { signal: AbortSignal.timeout(5000) });
+    if (!response.ok) return '';
+    const html = await response.text();
+    return html
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 30000);
+  } catch {
+    return '';
+  }
+};
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://cavernatorrinha.com');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -27,12 +45,16 @@ export default async function handler(req, res) {
   try {
     const messages = Array.isArray(req.body?.messages) ? req.body.messages.slice(-8) : [];
     const question = String(messages.filter(message => message.role === 'user').at(-1)?.content || '').toLowerCase();
+    if (question.includes('instagram') || question.includes('insta')) {
+      return res.status(200).json({ answer: 'O Instagram oficial é @cavernatorrinha_oficial. Você também pode acessar: https://www.instagram.com/cavernatorrinha_oficial/' });
+    }
     if (question.includes('km') || question.includes('quilometr')) {
       return res.status(200).json({ answer: 'A Caverna Torrinha tem 14,5 km mapeados. Desse total, 2,5 km são acessíveis à visitação.' });
     }
+    const officialSiteText = await getOfficialSiteText();
     const response = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-      body: JSON.stringify({ model: 'gpt-4o-mini', instructions: siteKnowledge, input: messages })
+      body: JSON.stringify({ model: 'gpt-4o-mini', instructions: `${siteKnowledge}\n\nConteúdo atualizado consultado no site oficial:\n${officialSiteText || 'O site oficial não respondeu agora; use a base fixa acima.'}`, input: messages })
     });
     const data = await response.json();
     if (!response.ok) return res.status(response.status).json({ error: 'A OpenAI não conseguiu responder agora.' });
