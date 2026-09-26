@@ -46,6 +46,25 @@ const addAiMessage = (message, type) => {
   return item;
 };
 
+const addAiLoading = () => {
+  const item = document.createElement('div');
+  item.className = 'ai-chat__message ai-chat__message--bot ai-chat__loading';
+  item.innerHTML = '<span></span><span></span><span></span>';
+  aiChatMessages.appendChild(item);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  return item;
+};
+
+const scrollToRelevantSection = (question) => {
+  const normalized = question.toLowerCase();
+  const section = normalized.match(/roteiro|passeio|trilha|formação|estalactite|estalagmite/) ? 'rotas'
+    : normalized.match(/horário|hora|preço|valor|reserva|segurança|criança|acessibilidade/) ? 'visita'
+      : normalized.match(/onde|endereço|localização|mapa|distância|km/) ? 'localizacao'
+        : normalized.match(/instagram|whatsapp|telefone|contato|falar/) ? 'contato'
+          : null;
+  if (section) document.getElementById(section)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
 aiChatOpen?.addEventListener('click', () => {
   aiChat.classList.add('is-open');
   aiChat.setAttribute('aria-hidden', 'false');
@@ -61,10 +80,11 @@ aiChatForm?.addEventListener('submit', async (event) => {
   if (!question) return;
   addAiMessage(question, 'user');
   aiChatHistory.push({ role: 'user', content: question });
+  scrollToRelevantSection(question);
   aiChatInput.value = '';
   aiChatInput.disabled = true;
   aiChatForm.querySelector('button').disabled = true;
-  const loading = addAiMessage('Estou consultando as informações da Caverna Torrinha...', 'bot');
+  const loading = addAiLoading();
   try {
     const response = await fetch('https://sitetorrinha.vercel.app/api/chat', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
