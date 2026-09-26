@@ -29,6 +29,35 @@ const maxMeters = 14500;
 const reveals = document.querySelectorAll('.reveal');
 const cards = document.querySelectorAll('.card, .shot, .info-item, details, .hero-panel');
 const galleryShots = Array.from(document.querySelectorAll('.shot'));
+const siteHeader = document.querySelector('header');
+let lastScrollY = window.scrollY;
+let scrollTicking = false;
+
+const updateHeaderVisibility = () => {
+  const currentScrollY = window.scrollY;
+  if (!window.matchMedia('(max-width: 719px)').matches) {
+    siteHeader?.classList.remove('header-hidden');
+    lastScrollY = currentScrollY;
+    scrollTicking = false;
+    return;
+  }
+  if (currentScrollY <= 12) {
+    siteHeader?.classList.remove('header-hidden');
+  } else if (currentScrollY > lastScrollY + 4) {
+    siteHeader?.classList.add('header-hidden');
+  } else if (currentScrollY < lastScrollY - 4) {
+    siteHeader?.classList.remove('header-hidden');
+  }
+  lastScrollY = currentScrollY;
+  scrollTicking = false;
+};
+
+window.addEventListener('scroll', () => {
+  if (!scrollTicking) {
+    window.requestAnimationFrame(updateHeaderVisibility);
+    scrollTicking = true;
+  }
+}, { passive: true });
 const routeCards = Array.from(document.querySelectorAll('.route[data-route]'));
 const bgImages = [
   'assets/3flor.jpg',
