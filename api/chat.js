@@ -1,3 +1,8 @@
+import fs from 'node:fs';
+
+const trainingData = JSON.parse(fs.readFileSync(new URL('./knowledge.json', import.meta.url), 'utf8'));
+const trainingKnowledge = trainingData.faq.map(item => `Pergunta: ${item.pergunta}\nResposta: ${item.resposta}`).join('\n\n');
+
 const siteKnowledge = `Você é o atendimento virtual oficial da Caverna Torrinha, em Iraquara, Chapada Diamantina, Bahia.
 
 Use somente as informações abaixo. Responda em português do Brasil, com clareza e brevidade. Se a pergunta não for sobre a Caverna Torrinha ou se a informação não estiver nesta base, diga que não possui essa informação e recomende contato pelo WhatsApp (75) 99856-1666. Nunca invente preços, horários, disponibilidade, regras ou informações de segurança.
@@ -61,7 +66,7 @@ export default async function handler(req, res) {
       method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
       body: JSON.stringify({
         model: 'gpt-5-mini',
-        instructions: `${siteKnowledge}\n\nConteúdo atualizado consultado no site oficial:\n${officialSiteText || 'O site oficial não respondeu agora; use a base fixa acima.'}\n\nQuando a informação não estiver no conteúdo da Caverna Torrinha, pesquise na internet antes de responder. Dê prioridade a fontes oficiais e atuais. Se não encontrar uma resposta confiável, diga isso claramente.`,
+        instructions: `${siteKnowledge}\n\nBase de conhecimento fornecida pelo responsável do site:\n${trainingKnowledge}\n\nConteúdo atualizado consultado no site oficial:\n${officialSiteText || 'O site oficial não respondeu agora; use a base fornecida acima.'}\n\nUse a base fornecida como fonte principal. Quando a informação não estiver nela, pesquise na internet antes de responder. Dê prioridade a fontes oficiais e atuais. Se não encontrar uma resposta confiável, diga isso claramente.`,
         tools: [{ type: 'web_search' }],
         input: messages
       })
@@ -72,7 +77,7 @@ export default async function handler(req, res) {
         method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
         body: JSON.stringify({
           model: 'gpt-4o-mini',
-          instructions: `${siteKnowledge}\n\nResponda de forma natural e útil, como um atendente virtual. Use o conteúdo do site quando ele responder à pergunta. Para saudações, converse normalmente. Se não souber algo, explique e indique o WhatsApp, sem dizer que ficou sem resposta.`,
+          instructions: `${siteKnowledge}\n\nBase de conhecimento fornecida pelo responsável do site:\n${trainingKnowledge}\n\nResponda de forma natural e útil, como um atendente virtual. Use essa base e o conteúdo do site quando eles responderem à pergunta. Para saudações, converse normalmente. Se não souber algo, explique e indique o WhatsApp, sem dizer que ficou sem resposta.`,
           input: messages
         })
       });

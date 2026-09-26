@@ -1,0 +1,127 @@
+{
+  "empresa": "Caverna Torrinha",
+  "descricao": "Base de conhecimento (perguntas e respostas) para treinamento de IA/chatbot do site da Caverna Torrinha, em Iraquara - BA, Chapada Diamantina.",
+  "fonte": "Site oficial cavernatorrinha.com.br e dados públicos de turismo (Tripadvisor, Buser, Wikipedia)",
+  "faq": [
+    {
+      "pergunta": "O que é a Caverna Torrinha?",
+      "resposta": "A Caverna Torrinha é uma das formações subterrâneas mais espetaculares do Brasil, localizada em Iraquara, na Chapada Diamantina, Bahia. É mundialmente conhecida por suas formações raras, como flores de aragonita, agulhas de gipsita, miniaturas cristalizadas dos morros da Chapada e helictites com flor de aragonita na ponta. É considerada a caverna mais completa em formações raras do Brasil."
+    },
+    {
+      "pergunta": "Onde fica a Caverna Torrinha?",
+      "resposta": "A Caverna Torrinha fica no município de Iraquara, no coração da Chapada Diamantina, na Bahia. Está localizada a 15 km da cidade de Iraquara e a 1 km da rodovia federal BR-122, dentro da Área de Proteção Ambiental Marimbus-Iraquara. Endereço: Zona Rural, Iraquara - BA, CEP 46980-000."
+    },
+    {
+      "pergunta": "Como chegar até a Caverna Torrinha?",
+      "resposta": "A caverna fica a 15 km da cidade de Iraquara-BA e a 1 km da rodovia BR-122. Iraquara fica a cerca de 450 km de Salvador. O acesso a partir de Salvador é pela BR-242 sentido Brasília até o entroncamento com a BR-330, seguindo depois por cerca de 21 km até a cidade de Iraquara."
+    },
+    {
+      "pergunta": "Qual o tamanho da Caverna Torrinha?",
+      "resposta": "A caverna tem 14,5 km mapeados, dos quais 2,5 km são acessíveis aos visitantes através dos roteiros turísticos."
+    },
+    {
+      "pergunta": "Quando a Caverna Torrinha foi descoberta?",
+      "resposta": "A caverna foi descoberta em 1850 e inicialmente explorada pelo Capitão José de Fulor, que percorreu cerca de 600 metros — trecho hoje conhecido como 'Roteiro do Capitão'. Por muito tempo acreditou-se que essa era a extensão máxima da caverna."
+    },
+    {
+      "pergunta": "Quem descobriu os grandes salões da caverna?",
+      "resposta": "Em 1992, a espeleóloga francesa Valery (Valerie) Nayon revelou uma passagem estreita que levava a vastos salões subterrâneos, permitindo um mapeamento muito mais detalhado da caverna. Em homenagem a ela, o segundo roteiro turístico se chama 'Roteiro Valerie'."
+    },
+    {
+      "pergunta": "Quais roteiros/passeios a Caverna Torrinha oferece?",
+      "resposta": "São 4 roteiros: Roteiro 1 - Capitão (leve e acessível), Roteiro 2 - Valerie (formações raras como a Maior Flor de Aragonita), Roteiro 3 - Mágico (helictites e o Palácio dos Cristais) e Roteiro 4 - Completo (todos os salões, incluindo o Salão dos Vulcões)."
+    },
+    {
+      "pergunta": "O que é o Roteiro do Capitão?",
+      "resposta": "O Roteiro do Capitão é o passeio mais leve e acessível, ideal para o primeiro contato com o mundo subterrâneo. Passa por estalactites, estalagmites, cortinas, colunas e travertinos. É indicado para todas as idades, incluindo crianças a partir de 5 anos e idosos. A única exigência física é subir uma escada de madeira de 18 degraus. Custa R$ 30,00 por pessoa e dura cerca de 40 minutos."
+    },
+    {
+      "pergunta": "O que é o Roteiro Valerie?",
+      "resposta": "O Roteiro Valerie homenageia a exploradora francesa Valery Nayon, que descobriu em 1992 a passagem para os grandes salões da caverna. Nesse roteiro é possível ver a Maior Flor de Aragonita da caverna, no Salão das Flores, além de flores de Calcita, Aragonita e Gipsita e as raras Agulhas de Gipsita. Custa R$ 70,00 por pessoa e dura cerca de 1h20min."
+    },
+    {
+      "pergunta": "O que é o Roteiro Mágico?",
+      "resposta": "O Roteiro Mágico apresenta salões com formações raras, como as helictites (que lembram lustres) e uma formação natural em miniatura que lembra o Morro do Pai Inácio. Passa pelo Palácio dos Cristais, com milhares de cristais brancos, e tem como ponto alto a Jóia das Cavernas, uma helictite com flor de aragonita na ponta. Custa R$ 80,00 por pessoa e dura cerca de 1h40min."
+    },
+    {
+      "pergunta": "O que é o Roteiro Completo?",
+      "resposta": "O Passeio Completo é a experiência mais ampla da Caverna Torrinha, com um percurso de 2,8 km que passa pelos salões do Valerie, pelo Salão dos Vulcões e chega ao Roteiro Mágico. É voltado para quem quer conhecer toda a grandiosidade da caverna. Custa R$ 150,00 por pessoa e dura cerca de 2h50min."
+    },
+    {
+      "pergunta": "Quais são os preços dos passeios na Caverna Torrinha?",
+      "resposta": "Os preços variam de R$ 30,00 a R$ 150,00, conforme o roteiro: Roteiro Capitão R$ 30,00 (40 min), Roteiro Valerie R$ 70,00 (1h20), Roteiro Mágico R$ 80,00 (1h40) e Roteiro Completo R$ 150,00 (2h50). Os valores podem sofrer reajustes; vale confirmar o valor atual antes da visita."
+    },
+    {
+      "pergunta": "Qual o horário de funcionamento da Caverna Torrinha?",
+      "resposta": "A caverna recebe visitantes todos os dias, de segunda a domingo, das 8h às 17h."
+    },
+    {
+      "pergunta": "Preciso fazer reserva para visitar a caverna?",
+      "resposta": "Reservas não são obrigatórias, exceto para grupos grandes ou visitas em alta temporada, quando é recomendado reservar para garantir disponibilidade de guias e evitar longas esperas."
+    },
+    {
+      "pergunta": "Quanto tempo dura a visita guiada?",
+      "resposta": "A duração varia conforme o roteiro escolhido, de 40 minutos (Roteiro Capitão) até 2h50min (Roteiro Completo)."
+    },
+    {
+      "pergunta": "É preciso levar equipamento próprio?",
+      "resposta": "Não. Capacetes e lanternas são fornecidos pela caverna para garantir a segurança dos visitantes durante o passeio."
+    },
+    {
+      "pergunta": "A caverna é acessível para pessoas com mobilidade reduzida?",
+      "resposta": "A visitação pode ser limitada para pessoas com mobilidade reduzida devido ao terreno irregular e a escadas. Ainda assim, a Torrinha é considerada uma das cavernas mais acessíveis do Brasil. Recomenda-se consultar previamente sobre acomodações específicas."
+    },
+    {
+      "pergunta": "Crianças podem visitar a caverna? A partir de que idade?",
+      "resposta": "Sim. O Roteiro do Capitão é indicado para crianças a partir de 5 anos. É recomendado que crianças estejam sempre acompanhadas de um adulto responsável."
+    },
+    {
+      "pergunta": "Quem tem claustrofobia pode fazer o passeio?",
+      "resposta": "Sim, com atenção. A caverna é bem ventilada e a equipe de guias é treinada para orientar visitantes com claustrofobia, inclusive permitindo o retorno do passeio caso necessário."
+    },
+    {
+      "pergunta": "Posso comer ou beber dentro da caverna?",
+      "resposta": "Apenas água é permitida durante a visita. Alimentos não são permitidos, para evitar danos às formações e contaminação do ambiente da caverna."
+    },
+    {
+      "pergunta": "O que fazer em caso de emergência dentro da caverna?",
+      "resposta": "Em caso de emergência, o visitante deve manter a calma e seguir as orientações dos guias treinados. A caverna possui saídas de emergência sinalizadas."
+    },
+    {
+      "pergunta": "Que estrutura o local oferece além da caverna?",
+      "resposta": "Além da caverna, o local conta com restaurante, cafeteria e pizzaria, e está em processo de construção de uma pousada. Há planos futuros de operação noturna com serviços de pizzaria e culinária fina."
+    },
+    {
+      "pergunta": "Quais formações raras existem na Caverna Torrinha?",
+      "resposta": "A caverna abriga flores de aragonita (incluindo a segunda maior flor de aragonita do mundo), agulhas de gipsita, helictites, estalactites, estalagmites, cortinas, colunas, travertinos e uma raríssima helictite com flor de aragonita na ponta, chamada de Jóia das Cavernas."
+    },
+    {
+      "pergunta": "Por que a Caverna Torrinha é considerada especial?",
+      "resposta": "Ela é considerada a caverna mais completa em formações raras do Brasil, com grande variedade de espeleotemas, incluindo a segunda maior flor de aragonita do mundo, salões amplos e passagens estreitas que atraem tanto turistas quanto pesquisadores do mundo todo."
+    },
+    {
+      "pergunta": "Quais são os contatos da Caverna Torrinha?",
+      "resposta": "Telefone/WhatsApp: (75) 99700-9496 (também há um número (75) 99856-1666 listado no site). E-mail: contato@cavernatorrinha.com.br. Redes sociais: Instagram @cavernatorrinha_oficial e Facebook (Caverna Torrinha)."
+    },
+    {
+      "pergunta": "A Caverna Torrinha tem site oficial?",
+      "resposta": "Sim, o site oficial é cavernatorrinha.com.br, onde estão disponíveis informações sobre história, roteiros, FAQ, galeria de imagens e contato."
+    },
+    {
+      "pergunta": "Quais outras atrações turísticas ficam perto da Caverna Torrinha?",
+      "resposta": "Nas proximidades estão outras cavernas famosas da região de Iraquara, como a Gruta da Lapa Doce, a Gruta da Fumaça e a Gruta da Pratinha, além de cachoeiras como a Cachoeira do Riacho do Mel."
+    },
+    {
+      "pergunta": "Iraquara é conhecida por quê?",
+      "resposta": "Iraquara é um município da Chapada Diamantina, na Bahia, conhecido como a 'Cidade das Cavernas', por concentrar uma das maiores densidades de cavernas do Brasil, incluindo Pratinha, Lapa Doce, Torrinha e Gruta Azul."
+    },
+    {
+      "pergunta": "A Caverna Torrinha é boa para famílias com crianças?",
+      "resposta": "Sim. O Roteiro do Capitão foi criado justamente para ser leve e acessível, recomendado para crianças a partir de 5 anos e idosos, tornando o passeio uma boa opção para famílias."
+    },
+    {
+      "pergunta": "Vale a pena contratar guia/agência para visitar a Caverna Torrinha?",
+      "resposta": "Muitos visitantes relatam boas experiências contratando agências locais de turismo, que incluem transporte, guia e às vezes almoço no pacote. A visita à caverna sempre é acompanhada por guias locais treinados, que fornecem capacete, lanterna e explicam as formações durante o percurso."
+    }
+  ]
+}
