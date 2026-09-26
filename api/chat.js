@@ -63,8 +63,19 @@ export default async function handler(req, res) {
         input: messages
       })
     });
-    const data = await response.json();
-    if (!response.ok) return res.status(response.status).json({ error: 'A OpenAI não conseguiu responder agora.' });
+    let data = await response.json();
+    if (!response.ok || !data.output_text) {
+      const retry = await fetch('https://api.openai.com/v1/responses', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          instructions: `${siteKnowledge}\n\nResponda de forma natural e útil, como um atendente virtual. Use o conteúdo do site quando ele responder à pergunta. Para saudações, converse normalmente. Se não souber algo, explique e indique o WhatsApp, sem dizer que ficou sem resposta.`,
+          input: messages
+        })
+      });
+      data = await retry.json();
+    }
+    if (!data.output_text) return res.status(200).json({ answer: 'Posso ajudar com horários, roteiros, preços, localização e informações da Caverna Torrinha. Para outras dúvidas, fale com a equipe pelo WhatsApp: (75) 99856-1666.' });
     return res.status(200).json({ answer: data.output_text || 'Não encontrei uma resposta confiável agora. Para confirmar essa informação, fale com a equipe da Caverna Torrinha pelo WhatsApp: (75) 99856-1666.' });
   } catch {
     return res.status(500).json({ error: 'Não foi possível conectar ao atendimento agora.' });
