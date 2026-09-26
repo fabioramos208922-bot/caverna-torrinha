@@ -2,3 +2,5 @@ node_modules/
 .vercel/
 .vercelignore
 assets/*_compressed.mp4
+
+.vercel

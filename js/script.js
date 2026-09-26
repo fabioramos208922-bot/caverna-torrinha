@@ -29,6 +29,61 @@ const maxMeters = 14500;
 const reveals = document.querySelectorAll('.reveal');
 const cards = document.querySelectorAll('.card, .shot, .info-item, details, .hero-panel');
 const galleryShots = Array.from(document.querySelectorAll('.shot'));
+const aiChat = document.getElementById('aiChat');
+const aiChatOpen = document.getElementById('aiChatOpen');
+const aiChatClose = document.getElementById('aiChatClose');
+const aiChatForm = document.getElementById('aiChatForm');
+const aiChatInput = document.getElementById('aiChatInput');
+const aiChatMessages = document.getElementById('aiChatMessages');
+const aiChatHistory = [];
+
+const addAiMessage = (message, type) => {
+  const item = document.createElement('div');
+  item.className = `ai-chat__message ai-chat__message--${type}`;
+  item.textContent = message;
+  aiChatMessages.appendChild(item);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  return item;
+};
+
+aiChatOpen?.addEventListener('click', () => {
+  aiChat.classList.add('is-open');
+  aiChat.setAttribute('aria-hidden', 'false');
+  aiChatInput.focus();
+});
+aiChatClose?.addEventListener('click', () => {
+  aiChat.classList.remove('is-open');
+  aiChat.setAttribute('aria-hidden', 'true');
+});
+aiChatForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const question = aiChatInput.value.trim();
+  if (!question) return;
+  addAiMessage(question, 'user');
+  aiChatHistory.push({ role: 'user', content: question });
+  aiChatInput.value = '';
+  aiChatInput.disabled = true;
+  aiChatForm.querySelector('button').disabled = true;
+  const loading = addAiMessage('Estou consultando as informações da Caverna Torrinha...', 'bot');
+  try {
+    const response = await fetch('https://sitetorrinha-p81ecfik0-fabioramos208922-bots-projects.vercel.app/api/chat', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: aiChatHistory.slice(-8) })
+    });
+    const data = await response.json();
+    loading.remove();
+    if (!response.ok) throw new Error(data.error || 'Não foi possível responder agora.');
+    addAiMessage(data.answer, 'bot');
+    aiChatHistory.push({ role: 'assistant', content: data.answer });
+  } catch (error) {
+    loading.remove();
+    addAiMessage(error.message || 'Não foi possível responder agora.', 'error');
+  } finally {
+    aiChatInput.disabled = false;
+    aiChatForm.querySelector('button').disabled = false;
+    aiChatInput.focus();
+  }
+});
 const siteHeader = document.querySelector('header');
 let lastScrollY = window.scrollY;
 let scrollTicking = false;
