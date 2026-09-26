@@ -36,7 +36,9 @@ const getOfficialSiteText = async () => {
 };
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://cavernatorrinha.com');
+  const allowedOrigins = new Set(['https://cavernatorrinha.com', 'https://sitetorrinha.vercel.app']);
+  const requestOrigin = req.headers.origin;
+  if (allowedOrigins.has(requestOrigin)) res.setHeader('Access-Control-Allow-Origin', requestOrigin);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(204).end();
@@ -54,11 +56,16 @@ export default async function handler(req, res) {
     const officialSiteText = await getOfficialSiteText();
     const response = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-      body: JSON.stringify({ model: 'gpt-4o-mini', instructions: `${siteKnowledge}\n\nConteúdo atualizado consultado no site oficial:\n${officialSiteText || 'O site oficial não respondeu agora; use a base fixa acima.'}`, input: messages })
+      body: JSON.stringify({
+        model: 'gpt-5-mini',
+        instructions: `${siteKnowledge}\n\nConteúdo atualizado consultado no site oficial:\n${officialSiteText || 'O site oficial não respondeu agora; use a base fixa acima.'}\n\nQuando a informação não estiver no conteúdo da Caverna Torrinha, pesquise na internet antes de responder. Dê prioridade a fontes oficiais e atuais. Se não encontrar uma resposta confiável, diga isso claramente.`,
+        tools: [{ type: 'web_search' }],
+        input: messages
+      })
     });
     const data = await response.json();
     if (!response.ok) return res.status(response.status).json({ error: 'A OpenAI não conseguiu responder agora.' });
-    return res.status(200).json({ answer: data.output_text || 'Não consegui encontrar essa informação na minha base.' });
+    return res.status(200).json({ answer: data.output_text || 'Não encontrei uma resposta confiável agora. Para confirmar essa informação, fale com a equipe da Caverna Torrinha pelo WhatsApp: (75) 99856-1666.' });
   } catch {
     return res.status(500).json({ error: 'Não foi possível conectar ao atendimento agora.' });
   }
