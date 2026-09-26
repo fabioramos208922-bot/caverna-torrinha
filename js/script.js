@@ -66,7 +66,7 @@ aiChatForm?.addEventListener('submit', async (event) => {
   aiChatForm.querySelector('button').disabled = true;
   const loading = addAiMessage('Estou consultando as informações da Caverna Torrinha...', 'bot');
   try {
-    const response = await fetch('https://sitetorrinha-p81ecfik0-fabioramos208922-bots-projects.vercel.app/api/chat', {
+    const response = await fetch('https://sitetorrinha.vercel.app/api/chat', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: aiChatHistory.slice(-8) })
     });
