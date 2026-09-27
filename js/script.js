@@ -116,7 +116,7 @@ let scrollTicking = false;
 
 const updateHeaderVisibility = () => {
   const currentScrollY = window.scrollY;
-  if (!window.matchMedia('(max-width: 719px)').matches) {
+  if (!window.matchMedia('(max-width: 899px)').matches) {
     siteHeader?.classList.remove('header-hidden');
     lastScrollY = currentScrollY;
     scrollTicking = false;
