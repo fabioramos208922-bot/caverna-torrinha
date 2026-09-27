@@ -663,8 +663,9 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
   .ai-chat__header{padding:10px 14px;gap:10px}
   .ai-chat__brand-icon{width:42px;height:42px}
   .ai-chat__close{width:34px;height:34px}
-  .ai-chat__header{align-items:start;padding-top:7px}
-  .ai-chat__header > div{position:relative;top:-7px}
+  .ai-chat__header{align-items:start;padding-top:2px}
+  .ai-chat__header > div{position:relative;top:-16px}
+  .ai-chat__header > .ai-chat__brand-icon,.ai-chat__header > .ai-chat__close{position:relative;top:-8px}
   .ai-chat__form{position:relative;top:18px;margin-bottom:-8px}
   .ai-chat__messages{padding:16px 14px}
 }
