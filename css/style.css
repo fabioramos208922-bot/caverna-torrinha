@@ -659,10 +659,10 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
 .ai-chat__form button:disabled{opacity:.6;cursor:wait}
 @media (max-width:719px){
   .ai-chat__open{right:12px;bottom:80px}
-  .ai-chat{right:16px;bottom:82px;width:calc(100vw - 32px);height:min(540px,calc(100vh - 120px));border-radius:17px}
-  .ai-chat__header{padding:12px 14px;gap:10px}
-  .ai-chat__brand-icon{width:48px;height:48px}
-  .ai-chat__close{width:38px;height:38px}
+  .ai-chat{right:16px;bottom:68px;width:calc(100vw - 32px);height:min(420px,calc(100vh - 150px));border-radius:17px}
+  .ai-chat__header{padding:10px 14px;gap:10px}
+  .ai-chat__brand-icon{width:42px;height:42px}
+  .ai-chat__close{width:34px;height:34px}
   .ai-chat__messages{padding:16px 14px}
 }
 
