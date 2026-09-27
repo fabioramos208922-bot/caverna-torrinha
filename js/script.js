@@ -355,6 +355,11 @@ routeModal.addEventListener('click', (event) => {
   if (event.target.hasAttribute('data-route-close')) closeRouteModal();
 });
 window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && aiChat?.classList.contains('is-open')) {
+    aiChat.classList.remove('is-open');
+    aiChat.setAttribute('aria-hidden', 'true');
+    aiChatOpen?.focus();
+  }
   if (event.key === 'Escape') closeLightbox();
   if (event.key === 'Escape') closeRouteModal();
   if (event.key === 'ArrowLeft' && lightbox.classList.contains('is-open')) stepLightbox(-1);
