@@ -1,6 +1,4 @@
-import fs from 'node:fs';
-
-const trainingData = JSON.parse(fs.readFileSync(new URL('./knowledge.json', import.meta.url), 'utf8'));
+import trainingData from './knowledge.json' with { type: 'json' };
 const trainingKnowledge = trainingData.faq.map(item => `Pergunta: ${item.pergunta}\nResposta: ${item.resposta}`).join('\n\n');
 
 const siteKnowledge = `Você é o atendimento virtual oficial da Caverna Torrinha, em Iraquara, Chapada Diamantina, Bahia.

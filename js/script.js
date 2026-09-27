@@ -90,7 +90,13 @@ aiChatForm?.addEventListener('submit', async (event) => {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: aiChatHistory.slice(-8) })
     });
-    const data = await response.json();
+    const responseText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      throw new Error('O atendimento está sendo atualizado. Tente novamente em alguns segundos.');
+    }
     loading.remove();
     if (!response.ok) throw new Error(data.error || 'Não foi possível responder agora.');
     addAiMessage(data.answer, 'bot');
