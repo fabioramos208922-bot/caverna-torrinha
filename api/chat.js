@@ -1,5 +1,17 @@
 import trainingData from './knowledge.json' with { type: 'json' };
 const trainingKnowledge = trainingData.faq.map(item => `Pergunta: ${item.pergunta}\nResposta: ${item.resposta}`).join('\n\n');
+const normalizeText = value => String(value).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ');
+const findTrainingAnswer = question => {
+  const questionWords = new Set(normalizeText(question).split(/\s+/).filter(word => word.length > 2));
+  let bestMatch = null;
+  let bestScore = 0;
+  for (const item of trainingData.faq) {
+    const faqWords = normalizeText(item.pergunta).split(/\s+/).filter(word => word.length > 2);
+    const score = faqWords.filter(word => questionWords.has(word)).length;
+    if (score > bestScore) { bestScore = score; bestMatch = item; }
+  }
+  return bestScore >= 2 ? bestMatch?.resposta : null;
+};
 
 const siteKnowledge = `Você é o atendimento virtual oficial da Caverna Torrinha, em Iraquara, Chapada Diamantina, Bahia.
 
@@ -53,6 +65,8 @@ export default async function handler(req, res) {
     if (/^(olá|ola|oi|bom dia|boa tarde|boa noite)[!,.? ]*$/i.test(question.trim())) {
       return res.status(200).json({ answer: 'Olá! Tudo bem? Como posso ajudar?' });
     }
+    const trainedAnswer = findTrainingAnswer(question);
+    if (trainedAnswer) return res.status(200).json({ answer: trainedAnswer });
     if (question.includes('instagram') || question.includes('insta')) {
       return res.status(200).json({ answer: 'O Instagram oficial é @cavernatorrinha_oficial. Você também pode acessar: https://www.instagram.com/cavernatorrinha_oficial/' });
     }
