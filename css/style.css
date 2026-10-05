@@ -615,6 +615,29 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
 }
 .whatsapp:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 16px 34px rgba(0,0,0,.42)}
 .whatsapp svg{width:26px;height:26px;fill:white}
+.route-price{margin:18px 0 14px;color:var(--text)}
+.route-price strong{color:var(--amber-2)}
+.route .btn-whatsapp{
+  display:flex;
+  width:100%;
+  min-height:50px;
+  margin-top:4px;
+  padding:12px 14px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:12px;
+  background:linear-gradient(180deg,#35d66f,#19a957);
+  color:#062b16;
+  font-size:.92rem;
+  line-height:1.2;
+  text-align:center;
+  white-space:normal;
+  box-shadow:0 8px 22px rgba(25,169,87,.28);
+}
+.route .btn-whatsapp:hover{background:linear-gradient(180deg,#54e987,#20bd65);box-shadow:0 12px 28px rgba(25,169,87,.4)}
+.route-modal__whatsapp{margin-top:18px;width:100%;justify-content:center}
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:rgba(18,16,14,.97);box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.cookie-banner[hidden]{display:none}
+.cookie-banner p{margin:0;color:var(--text);font-size:.9rem}.cookie-banner a{color:var(--amber-2)}.cookie-banner>div{display:flex;gap:8px;flex-shrink:0}.cookie-banner .btn{min-height:40px;padding:0 14px;font-size:.85rem}
 
 /* AI chat */
 .ai-chat__open{
@@ -839,6 +862,7 @@ footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line)}
   .lightbox__nav,.lightbox__close{width:44px;height:44px}
   .video-grid{grid-template-columns:1fr}
   .section-head h2,.section-head p{max-width:100%}
+  .cookie-banner{left:10px;right:10px;bottom:74px;display:flex;align-items:center;gap:8px;padding:9px 10px}.cookie-banner p{font-size:.76rem;line-height:1.25}.cookie-banner>div{gap:5px}.cookie-banner .btn{min-height:34px;width:auto;padding:0 9px;font-size:.75rem}
 }
 
 @media (max-width: 899px){

@@ -3,11 +3,57 @@ const label = document.getElementById('depthLabel');
 const bgA = document.getElementById('bgLayerA');
 const bgB = document.getElementById('bgLayerB');
 const menuThemeToggle = document.getElementById('menuThemeToggle');
-const whatsForm = document.getElementById('whatsForm');
 const formNome = document.getElementById('nome');
 const formEmail = document.getElementById('email');
 const formTelefone = document.getElementById('telefone');
 const formMensagem = document.getElementById('mensagem');
+const trackingIds = window.TRACKING_IDS || {};
+
+const isGa4 = (v) => /^G-[A-Z0-9]{6,}$/i.test(v || '') && !/X{4}/i.test(v);
+const isPixel = (v) => /^\d{15,16}$/.test(v || '');
+window.dataLayer = window.dataLayer || [];
+const initTracking = () => {
+if (isGa4(trackingIds.ga4)) {
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  const gaScript = document.createElement('script');
+  gaScript.async = true;
+  gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${trackingIds.ga4}`;
+  document.head.appendChild(gaScript);
+  window.gtag = (...args) => window.dataLayer.push(args);
+  window.gtag('js', new Date());
+  window.gtag('config', trackingIds.ga4);
+}
+if (isPixel(trackingIds.metaPixel)) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  window.fbq('init', trackingIds.metaPixel);
+  window.fbq('track', 'PageView');
+}
+};
+
+const cookieBanner = document.getElementById('cookieBanner');
+const consentKey = 'torrinha_cookie_consent';
+try {
+  const consent = localStorage.getItem(consentKey);
+  if (consent === 'accepted') initTracking();
+  else if (!consent && cookieBanner) cookieBanner.hidden = false;
+} catch { if (cookieBanner) cookieBanner.hidden = false; }
+const saveConsent = (value) => { try { localStorage.setItem(consentKey, value); } catch {} cookieBanner?.setAttribute('hidden', ''); cookieBanner?.setAttribute('aria-hidden', 'true'); if (value === 'accepted') initTracking(); };
+document.getElementById('acceptCookies')?.addEventListener('click', () => saveConsent('accepted'));
+document.getElementById('rejectCookies')?.addEventListener('click', () => saveConsent('rejected'));
+
+const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+try { const params = new URLSearchParams(window.location.search); utmKeys.forEach((key) => { const value = params.get(key); if (value) sessionStorage.setItem(key, value); }); } catch {}
+const getOrigem = () => { try { const source = sessionStorage.getItem('utm_source'); const campaign = sessionStorage.getItem('utm_campaign'); return source || campaign ? `${source || 'direto'} / ${campaign || 'sem campanha'}` : ''; } catch { return ''; } };
+
+const trackWhatsAppClick = (button) => {
+  const origem = button.dataset.origem || 'nao-informada';
+  const campanha = getOrigem();
+  if (campanha && !button.href.includes('origem%3A')) { const url = new URL(button.href); const text = url.searchParams.get('text') || ''; url.searchParams.set('text', `${text} (origem: ${campanha})`); button.href = url.toString(); }
+  window.dataLayer.push({ event: 'clique_whatsapp', origem, campanha });
+  if (typeof window.fbq === 'function') window.fbq('track', 'Contact');
+  if (typeof window.gtag === 'function') window.gtag('event', 'clique_whatsapp', { origem, campanha, transport_type: 'beacon' });
+};
+document.addEventListener('click', (event) => { const button = event.target.closest('.btn-whatsapp'); if (button) trackWhatsAppClick(button); });
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
 const lightboxClose = document.getElementById('lightboxClose');
@@ -142,46 +188,48 @@ window.addEventListener('scroll', () => {
 const routeCards = Array.from(document.querySelectorAll('.route[data-route]'));
 const bgImages = [
   'assets/3flor.jpg',
-  'assets/agulha (1).jpg',
+  'assets/agulha-1.jpg',
   'assets/bolha.jpg',
   'assets/cavidade.jpg',
   'assets/cristal.png',
   'assets/drinki.jpg',
   'assets/flor.png',
-  'assets/salao branco.jpg',
+  'assets/salao-branco.jpg',
   'assets/vulcao.jpg'
 ];
 let activeBgIndex = -1;
 let showingA = true;
 let backgroundIndex = 0;
 let activeLightboxIndex = 0;
+let routeModalTrigger = null;
+let lightboxTrigger = null;
 const routeDetails = {
   capitao: {
     kicker: 'Roteiro do Capitão',
     title: 'O percurso mais histórico',
     summary: 'Esse é o roteiro ideal para quem quer sentir a origem da exploração da Torrinha, com caminhada mais curta e leitura clara das formações clássicas.',
-    stats: [['Acesso a pé', 'Cerca de 700 m'], ['Duração', 'Aproximadamente 1h'], ['Esforço', 'Leve'], ['Perfil', 'Primeira visita']],
+    stats: [['Acesso a pé', 'Cerca de 700 m'], ['Duração', 'Aproximadamente 1h'], ['Esforço', 'Leve'], ['Perfil', 'Primeira visita'], ['Valor por pessoa', 'R$ 40,00']],
     notes: 'Pontos fortes: estalactites, estalagmites, colunas e cortinas. Ótimo para uma visita introdutória sem perder a atmosfera da caverna.'
   },
   valery: {
     kicker: 'Roteiro Valery',
     title: 'O percurso mais fotogênico',
     summary: 'Voltado para formações raras e enquadramentos mais impressionantes, com destaque para detalhes delicados e cristais curiosos.',
-    stats: [['Acesso a pé', 'Cerca de 1,2 km'], ['Duração', 'Aproximadamente 1h30'], ['Esforço', 'Moderado'], ['Perfil', 'Melhor para fotos']],
+    stats: [['Acesso a pé', 'Cerca de 1,2 km'], ['Duração', 'Aproximadamente 1h30'], ['Esforço', 'Moderado'], ['Perfil', 'Melhor para fotos'], ['Valor por pessoa', 'R$ 70,00']],
     notes: 'Pontos fortes: flores de aragonita, helictites e agulhas de gipsita. Boa escolha para quem quer ver mais variedade geológica.'
   },
   raridades: {
     kicker: 'Roteiro das Raridades',
     title: 'O percurso mais detalhado',
     summary: 'Esse roteiro junta algumas das formações mais incomuns da Torrinha em um trajeto pensado para quem quer observar tudo com calma.',
-    stats: [['Destaque', 'Bolha de calcita com flor'], ['Duração', 'Roteiro mais analítico'], ['Experiência', 'Salões internos'], ['Foco', 'Formações raras']],
+    stats: [['Duração', 'Aproximadamente 1h40'], ['Esforço', 'Moderado'], ['Valor por pessoa', 'R$ 80,00'], ['Destaque', 'Bolha de calcita com flor']],
     notes: 'Inclui o Salão dos Vulcões, helictite com flor na ponta e a réplica do Morro do Pai Inácio. É o roteiro para quem curte detalhes e curiosidades.'
   },
   completo: {
     kicker: 'Roteiro Completo',
     title: 'A experiência mais ampla',
     summary: 'Une os trechos principais e entrega a leitura mais completa da caverna, com um panorama mais rico da Torrinha como um todo.',
-    stats: [['Acesso', 'Cerca de 1,6 km'], ['Duração', 'Até 2h30'], ['Esforço', 'Moderado a avançado'], ['Perfil', 'Imersão total']],
+    stats: [['Acesso', 'Cerca de 3,0 km'], ['Duração', 'Até 2h30'], ['Esforço', 'Moderado a avançado'], ['Perfil', 'Imersão total'], ['Valor por pessoa', 'R$ 150,00']],
     notes: 'É a melhor opção para quem quer sair com a noção mais completa da geologia, do percurso e das principais formações do local.'
   }
 };
@@ -194,7 +242,7 @@ const galleryInfo = [
   { kicker: 'Calcita', title: 'Bolha de calcita', text: 'Uma formação que chama atenção pelo formato e pelo contexto geológico da galeria.' },
   { kicker: 'Parede natural', title: 'Cavidade', text: 'Leitura da rocha e dos vazios internos que estruturam o passeio e os salões.' },
   { kicker: 'Cristais', title: 'Cristalização', text: 'Detalhe dos minerais e do brilho característico de partes mais úmidas e claras.' },
-  { kicker: 'Paisagem interna', title: 'Formação adicional', text: 'Mais uma visão da caverna para variar o passeio visual entre uma imagem e outra.' }
+  { kicker: 'Galeria interna', title: 'Detalhes da Torrinha', text: 'Texturas e formas naturais que revelam a riqueza geológica das galerias.' }
 ];
 
 const updateDepth = () => {
@@ -247,15 +295,16 @@ const setMenuTheme = (dark) => {
 
 const buildWhatsAppLink = () => {
   const nome = formNome.value.trim();
-  const email = formEmail.value.trim();
-  const telefone = formTelefone.value.trim();
+  const email = formEmail?.value.trim();
+  const telefone = formTelefone?.value.trim();
   const mensagem = formMensagem.value.trim();
   const parts = [
     'Olá, vim pelo site da Caverna Torrinha.',
     nome ? `Nome: ${nome}` : null,
     email ? `E-mail: ${email}` : null,
     telefone ? `Telefone: ${telefone}` : null,
-    mensagem ? `Mensagem: ${mensagem}` : null
+    mensagem ? `Mensagem: ${mensagem}` : null,
+    getOrigem() ? `Origem: ${getOrigem()}` : null
   ].filter(Boolean);
   return `https://wa.me/5575998561666?text=${encodeURIComponent(parts.join('\n'))}`;
 };
@@ -263,6 +312,7 @@ const buildWhatsAppLink = () => {
 const renderRouteModal = (routeKey) => {
   const data = routeDetails[routeKey];
   if (!data) return;
+  routeModalTrigger = document.activeElement;
   routeModalKicker.textContent = data.kicker;
   routeModalTitle.textContent = data.title;
   routeModalSummary.textContent = data.summary;
@@ -273,18 +323,32 @@ const renderRouteModal = (routeKey) => {
     </div>
   `).join('');
   routeModalNotes.textContent = data.notes;
+  const oldCta = routeModal.querySelector('.route-modal__whatsapp');
+  oldCta?.remove();
+  const cta = document.createElement('a');
+  cta.className = 'btn btn-primary btn-whatsapp route-modal__whatsapp';
+  cta.dataset.origem = `modal-${routeKey}`;
+  cta.target = '_blank';
+  cta.rel = 'noopener';
+  cta.href = `https://wa.me/5575998561666?text=${encodeURIComponent(`Olá! Vi o site da Caverna Torrinha e quero reservar o ${data.kicker}.`)}`;
+  cta.textContent = 'Reservar este roteiro no WhatsApp';
+  routeModal.querySelector('.route-modal__panel').appendChild(cta);
   routeModal.classList.add('is-open');
   routeModal.setAttribute('aria-hidden', 'false');
+  routeModal.querySelector('.route-modal__close')?.focus();
 };
 
 const closeRouteModal = () => {
   routeModal.classList.remove('is-open');
   routeModal.setAttribute('aria-hidden', 'true');
+  routeModalTrigger?.focus();
+  routeModalTrigger = null;
 };
 
 const openLightbox = (index) => {
   const shot = galleryShots[index];
   if (!shot) return;
+  lightboxTrigger = document.activeElement;
   const img = shot.querySelector('img');
   const info = galleryInfo[index] || galleryInfo[0];
   activeLightboxIndex = index;
@@ -298,6 +362,7 @@ const openLightbox = (index) => {
   lightboxRightText.textContent = 'Use as setas para ir para a próxima ou anterior.';
   lightbox.classList.add('is-open');
   lightbox.setAttribute('aria-hidden', 'false');
+  lightboxClose?.focus();
 };
 
 const stepLightbox = (direction) => {
@@ -310,6 +375,8 @@ const closeLightbox = () => {
   lightbox.classList.remove('is-open');
   lightbox.setAttribute('aria-hidden', 'true');
   lightboxImg.src = '';
+  lightboxTrigger?.focus();
+  lightboxTrigger = null;
 };
 
 reveals.forEach(section => observer.observe(section));
@@ -337,8 +404,12 @@ galleryShots.forEach((shot) => {
 });
 routeCards.forEach((card) => {
   const open = () => renderRouteModal(card.dataset.route);
-  card.addEventListener('click', open);
+  card.addEventListener('click', (event) => {
+    if (event.target.closest('.btn-whatsapp')) return;
+    open();
+  });
   card.addEventListener('keydown', (event) => {
+    if (event.target !== card) return;
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       open();
@@ -366,7 +437,7 @@ window.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowRight' && lightbox.classList.contains('is-open')) stepLightbox(1);
 });
 bgA.style.backgroundImage = `url("${bgImages[0]}")`;
-bgB.style.backgroundImage = `url("${bgImages[1] || bgImages[0]}")`;
+bgB.style.backgroundImage = `url("${bgImages[0]}")`;
 bgA.style.opacity = '1';
 bgB.style.opacity = '0';
 bgA.style.transform = 'scale(1.12)';
@@ -375,10 +446,17 @@ setMenuTheme(true);
 menuThemeToggle.addEventListener('click', () => {
   setMenuTheme(!document.body.classList.contains('menu-dark'));
 });
-whatsForm.addEventListener('click', () => {
-  whatsForm.href = buildWhatsAppLink();
+const contactForm = document.getElementById('contactForm');
+contactForm?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const url = buildWhatsAppLink();
+  window.dataLayer.push({ event: 'formulario_contato_enviado', origem: 'formulario' });
+  if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+  if (typeof window.gtag === 'function') window.gtag('event', 'formulario_contato_enviado', { origem: 'formulario' });
+  window.open(url, '_blank', 'noopener');
 });
 updateDepth();
 updateBackgroundMotion();
 setBackground(0);
-setInterval(advanceBackground, 6500);
+window.addEventListener('load', () => bgImages.slice(1).forEach((src) => { const image = new Image(); image.src = src; }));
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(min-width: 900px)').matches) setInterval(advanceBackground, 6500);
