@@ -8,18 +8,20 @@ const formEmail = document.getElementById('email');
 const formTelefone = document.getElementById('telefone');
 const formMensagem = document.getElementById('mensagem');
 const trackingIds = window.TRACKING_IDS || {};
+const utm = window.TorrinhaUTM;
+let trackingConsent = false;
 
 const isGa4 = (v) => /^G-[A-Z0-9]{6,}$/i.test(v || '') && !/X{4}/i.test(v);
 const isPixel = (v) => /^\d{15,16}$/.test(v || '');
 window.dataLayer = window.dataLayer || [];
 const initTracking = () => {
+trackingConsent = true;
 if (isGa4(trackingIds.ga4)) {
   window.gtag = function () { window.dataLayer.push(arguments); };
   const gaScript = document.createElement('script');
   gaScript.async = true;
   gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${trackingIds.ga4}`;
   document.head.appendChild(gaScript);
-  window.gtag = (...args) => window.dataLayer.push(args);
   window.gtag('js', new Date());
   window.gtag('config', trackingIds.ga4);
 }
@@ -41,19 +43,15 @@ const saveConsent = (value) => { try { localStorage.setItem(consentKey, value); 
 document.getElementById('acceptCookies')?.addEventListener('click', () => saveConsent('accepted'));
 document.getElementById('rejectCookies')?.addEventListener('click', () => saveConsent('rejected'));
 
-const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-try { const params = new URLSearchParams(window.location.search); utmKeys.forEach((key) => { const value = params.get(key); if (value) sessionStorage.setItem(key, value); }); } catch {}
-const getOrigem = () => { try { const source = sessionStorage.getItem('utm_source'); const campaign = sessionStorage.getItem('utm_campaign'); return source || campaign ? `${source || 'direto'} / ${campaign || 'sem campanha'}` : ''; } catch { return ''; } };
-
-const trackWhatsAppClick = (button) => {
-  const origem = button.dataset.origem || 'nao-informada';
-  const campanha = getOrigem();
-  if (campanha && !button.href.includes('origem%3A')) { const url = new URL(button.href); const text = url.searchParams.get('text') || ''; url.searchParams.set('text', `${text} (origem: ${campanha})`); button.href = url.toString(); }
-  window.dataLayer.push({ event: 'clique_whatsapp', origem, campanha });
-  if (typeof window.fbq === 'function') window.fbq('track', 'Contact');
-  if (typeof window.gtag === 'function') window.gtag('event', 'clique_whatsapp', { origem, campanha, transport_type: 'beacon' });
-};
+const currentUtm = {};
+try { const params = new URLSearchParams(window.location.search); const values = utm.read(window.location.search, document.referrer); const hasUtm = utm.keys.some(k => params.has(k)); if (hasUtm) utm.keys.forEach(k => { if (values[k]) currentUtm[k] = values[k]; }); else utm.keys.forEach(k => { try { const v = sessionStorage.getItem(k); if (v) currentUtm[k] = v; } catch {} }); if (!currentUtm.utm_source && values.utm_source) currentUtm.utm_source = values.utm_source; utm.keys.forEach(k => { if (currentUtm[k]) { try { sessionStorage.setItem(k, currentUtm[k]); } catch {} } }); } catch {}
+const getOrigem = () => utm.origem(currentUtm);
+const trackingData = () => Object.fromEntries(Object.entries(currentUtm).filter(([, v]) => v));
+const prepareWhatsApp = (button) => { if (!button.dataset.waBase) button.dataset.waBase = button.getAttribute('href') || ''; const url = new URL(button.dataset.waBase, window.location.href); const text = url.searchParams.get('text') || ''; const origem = getOrigem(); url.searchParams.set('text', origem ? `${text} (origem: ${origem})` : text); button.href = url.toString(); button.dataset.origem = origem; if (new URLSearchParams(window.location.search).get('utm_debug') === '1') console.debug('[UTM]', { captured: currentUtm, origem, href: button.href }); };
+const trackWhatsAppClick = (button) => { prepareWhatsApp(button); const data = { ...trackingData(), origem: getOrigem() }; if (!trackingConsent) return; window.dataLayer.push({ event: 'clique_whatsapp', ...data }); if (typeof window.fbq === 'function') window.fbq('track', 'Contact', data); if (typeof window.gtag === 'function') window.gtag('event', 'clique_whatsapp', { ...data, transport_type: 'beacon' }); };
 document.addEventListener('click', (event) => { const button = event.target.closest('.btn-whatsapp'); if (button) trackWhatsAppClick(button); });
+['mousedown', 'touchstart', 'focusin'].forEach(type => document.addEventListener(type, event => { const button = event.target.closest('.btn-whatsapp'); if (button) prepareWhatsApp(button); }, type === 'touchstart' ? { passive: true } : undefined));
+document.querySelectorAll('.btn-whatsapp').forEach(prepareWhatsApp);
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
 const lightboxClose = document.getElementById('lightboxClose');
@@ -333,6 +331,7 @@ const renderRouteModal = (routeKey) => {
   cta.href = `https://wa.me/5575998561666?text=${encodeURIComponent(`Olá! Vi o site da Caverna Torrinha e quero reservar o ${data.kicker}.`)}`;
   cta.textContent = 'Reservar este roteiro no WhatsApp';
   routeModal.querySelector('.route-modal__panel').appendChild(cta);
+  prepareWhatsApp(cta);
   routeModal.classList.add('is-open');
   routeModal.setAttribute('aria-hidden', 'false');
   routeModal.querySelector('.route-modal__close')?.focus();
@@ -450,9 +449,8 @@ const contactForm = document.getElementById('contactForm');
 contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   const url = buildWhatsAppLink();
-  window.dataLayer.push({ event: 'formulario_contato_enviado', origem: 'formulario' });
-  if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
-  if (typeof window.gtag === 'function') window.gtag('event', 'formulario_contato_enviado', { origem: 'formulario' });
+  const data = { ...trackingData(), origem: getOrigem() };
+  if (trackingConsent) { window.dataLayer.push({ event: 'formulario_contato_enviado', ...data }); if (typeof window.fbq === 'function') window.fbq('track', 'Lead', data); if (typeof window.gtag === 'function') window.gtag('event', 'formulario_contato_enviado', data); }
   window.open(url, '_blank', 'noopener');
 });
 updateDepth();
