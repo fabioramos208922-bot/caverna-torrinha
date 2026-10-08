@@ -7,24 +7,13 @@ const formNome = document.getElementById('nome');
 const formEmail = document.getElementById('email');
 const formTelefone = document.getElementById('telefone');
 const formMensagem = document.getElementById('mensagem');
-const trackingIds = window.TRACKING_IDS || {};
 const utm = window.TorrinhaUTM;
 let trackingConsent = false;
-
-const isGa4 = (v) => /^G-[A-Z0-9]{6,}$/i.test(v || '') && !/X{4}/i.test(v);
+const ADS_CONVERSION_LABEL = ''; // preencher com o rótulo da ação de conversão
 const isPixel = (v) => /^\d{15,16}$/.test(v || '');
-window.dataLayer = window.dataLayer || [];
 const initTracking = () => {
 trackingConsent = true;
-if (isGa4(trackingIds.ga4)) {
-  window.gtag = function () { window.dataLayer.push(arguments); };
-  const gaScript = document.createElement('script');
-  gaScript.async = true;
-  gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${trackingIds.ga4}`;
-  document.head.appendChild(gaScript);
-  window.gtag('js', new Date());
-  window.gtag('config', trackingIds.ga4);
-}
+const trackingIds = window.TRACKING_IDS || {};
 if (isPixel(trackingIds.metaPixel)) {
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
   window.fbq('init', trackingIds.metaPixel);
@@ -39,18 +28,19 @@ try {
   if (consent === 'accepted') initTracking();
   else if (!consent && cookieBanner) cookieBanner.hidden = false;
 } catch { if (cookieBanner) cookieBanner.hidden = false; }
-const saveConsent = (value) => { try { localStorage.setItem(consentKey, value); } catch {} cookieBanner?.setAttribute('hidden', ''); cookieBanner?.setAttribute('aria-hidden', 'true'); if (value === 'accepted') initTracking(); };
+const saveConsent = (value) => { try { localStorage.setItem(consentKey, value); } catch {} cookieBanner?.setAttribute('hidden', ''); cookieBanner?.setAttribute('aria-hidden', 'true'); if (value === 'accepted') { window.torrinhaConsentGranted?.(); initTracking(); } };
 document.getElementById('acceptCookies')?.addEventListener('click', () => saveConsent('accepted'));
 document.getElementById('rejectCookies')?.addEventListener('click', () => saveConsent('rejected'));
 
 const currentUtm = {};
-try { const params = new URLSearchParams(window.location.search); const values = utm.read(window.location.search, document.referrer); const hasUtm = utm.keys.some(k => params.has(k)); if (hasUtm) utm.keys.forEach(k => { if (values[k]) currentUtm[k] = values[k]; }); else utm.keys.forEach(k => { try { const v = sessionStorage.getItem(k); if (v) currentUtm[k] = v; } catch {} }); if (!currentUtm.utm_source && values.utm_source) currentUtm.utm_source = values.utm_source; utm.keys.forEach(k => { if (currentUtm[k]) { try { sessionStorage.setItem(k, currentUtm[k]); } catch {} } }); } catch {}
+try { const params = new URLSearchParams(window.location.search); const values = utm.read(window.location.search, document.referrer); const consent = localStorage.getItem('torrinha_cookie_consent') === 'accepted'; utm.keys.forEach(k => { if (values[k]) currentUtm[k] = values[k]; }); if (consent) utm.keys.forEach(k => { if (!currentUtm[k]) { try { currentUtm[k] = sessionStorage.getItem(k) || ''; } catch {} } if (currentUtm[k]) { try { sessionStorage.setItem(k, currentUtm[k]); } catch {} } }); } catch {}
 const getOrigem = () => utm.origem(currentUtm);
 const trackingData = () => Object.fromEntries(Object.entries(currentUtm).filter(([, v]) => v));
-const prepareWhatsApp = (button) => { if (!button.dataset.waBase) button.dataset.waBase = button.getAttribute('href') || ''; const url = new URL(button.dataset.waBase, window.location.href); const text = url.searchParams.get('text') || ''; const origem = getOrigem(); url.searchParams.set('text', origem ? `${text} (origem: ${origem})` : text); button.href = url.toString(); button.dataset.origem = origem; if (new URLSearchParams(window.location.search).get('utm_debug') === '1') console.debug('[UTM]', { captured: currentUtm, origem, href: button.href }); };
-const trackWhatsAppClick = (button) => { prepareWhatsApp(button); const data = { ...trackingData(), origem: getOrigem() }; if (!trackingConsent) return; window.dataLayer.push({ event: 'clique_whatsapp', ...data }); if (typeof window.fbq === 'function') window.fbq('track', 'Contact', data); if (typeof window.gtag === 'function') window.gtag('event', 'clique_whatsapp', { ...data, transport_type: 'beacon' }); };
-document.addEventListener('click', (event) => { const button = event.target.closest('.btn-whatsapp'); if (button) trackWhatsAppClick(button); });
-['mousedown', 'touchstart', 'focusin'].forEach(type => document.addEventListener(type, event => { const button = event.target.closest('.btn-whatsapp'); if (button) prepareWhatsApp(button); }, type === 'touchstart' ? { passive: true } : undefined));
+const prepareWhatsApp = (button) => { if (!button.dataset.waBase) button.dataset.waBase = button.getAttribute('href') || ''; const url = new URL(button.dataset.waBase, window.location.href); const text = url.searchParams.get('text') || ''; const origem = getOrigem(); url.searchParams.set('text', origem ? `${text} (Origem: ${origem})` : text); button.href = url.toString(); button.dataset.utmOrigem = origem; if (new URLSearchParams(window.location.search).get('utm_debug') === '1') console.debug('[UTM]', { captured: currentUtm, origem, href: button.href }); };
+const sendConversion = () => { if (ADS_CONVERSION_LABEL && typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: 'AW-18500249861/' + ADS_CONVERSION_LABEL }); };
+const trackWhatsAppClick = (button) => { prepareWhatsApp(button); const data = { ...trackingData(), local_botao: button.dataset.origem || 'outro', roteiro: button.dataset.roteiro || button.closest('[data-route]')?.dataset.route || '' }; if (!trackingConsent) return; window.gtag('event', 'clique_whatsapp', { ...data, transport_type: 'beacon' }); sendConversion(); };
+document.addEventListener('click', (event) => { const link = event.target.closest('a[href]'); if (!link) return; const href = link.href.toLowerCase(); if (/^https:\/\/(wa\.me|api\.whatsapp\.com)\//.test(href)) trackWhatsAppClick(link); if (href.startsWith('tel:') && trackingConsent) { window.gtag('event', 'clique_telefone', { local_botao: link.dataset.origem || 'outro' }); sendConversion(); } });
+['mousedown', 'touchstart', 'focusin'].forEach(type => document.addEventListener(type, event => { const button = event.target.closest('a[href^="https://wa.me"], a[href^="https://api.whatsapp.com"]'); if (button) prepareWhatsApp(button); }, type === 'touchstart' ? { passive: true } : undefined));
 document.querySelectorAll('.btn-whatsapp').forEach(prepareWhatsApp);
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
@@ -450,7 +440,8 @@ contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   const url = buildWhatsAppLink();
   const data = { ...trackingData(), origem: getOrigem() };
-  if (trackingConsent) { window.dataLayer.push({ event: 'formulario_contato_enviado', ...data }); if (typeof window.fbq === 'function') window.fbq('track', 'Lead', data); if (typeof window.gtag === 'function') window.gtag('event', 'formulario_contato_enviado', data); }
+  document.querySelectorAll('#contactForm input[type="hidden"]').forEach((field) => { field.value = currentUtm[field.name] || ''; });
+  if (trackingConsent) { window.gtag('event', 'formulario_contato_enviado', { roteiro: data.roteiro || '' }); window.gtag('event', 'generate_lead', { roteiro: data.roteiro || '' }); sendConversion(); }
   window.open(url, '_blank', 'noopener');
 });
 updateDepth();
